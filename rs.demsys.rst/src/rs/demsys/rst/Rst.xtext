@@ -1,0 +1,461 @@
+grammar rs.demsys.rst.Rst hidden(WS)
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+generate rst "http://www.demsys.rs/rst/Rst"
+import "http://www.demsys.rs/rst/Bib" as bib
+
+Document:
+	NL*
+    UniversalSection+=Section*
+	;
+
+Section:
+	  GlobalSection
+	| UniversalSection
+;
+
+GlobalSection:
+	(
+	  (=> NamedSectionTitle)
+	| SectionTitle
+	| Directive
+	) NL*
+;
+
+UniversalSection:
+	(
+//    	| TwoLevelBulletLine
+    	  BulletLine 
+    	| Paragraph
+//    	| NL
+		) NL*
+;
+
+SectionTitle:
+	(overline=Underline NL)?
+	title=Text NL
+	(=> underline=Underline) NL NL
+;
+
+NamedSectionTitle:
+	(overline=Underline NL)?
+	name=SimpleText NL
+	(=> underline=Underline) NL NL
+;
+
+Underline:
+      EQUAL_LINE
+    | STAR_LINE
+    | SEMI_LINE
+    | MINUS_LINE
+;
+
+Paragraph:
+	first=StartTextLiteral text=Text? NL
+;
+
+//TwoLevelBulletLine:
+//	BULLET BULLET Text
+//;
+
+BulletLine:
+	BULLET BULLET* (first=StartTextLiteral text=Text?)? NL
+	block=Block?
+;
+
+Directive:
+	  MathDirective
+	| IncludeDirective
+	| OtherIncludeDirective
+	| ImageDirective
+	| LabelDirective
+	| BibDirective
+	| ReplacementDirective
+	| RawDirective
+	| OtherDirective
+;
+
+RawSection:
+	( RawLine 
+	| RawBlock
+	) //NL*
+;
+
+MathDirective:
+    '..' 'math::' 
+    firstLine=RawText? NL
+	( NL*
+	BEGIN
+	    (':label:' name=SIMPLE_WORD NL)?
+//	    options+=DirectiveOption*
+//	    NL*
+//	    line+=RawLine+
+//		block+=UniversalSection*
+    	block+=RawSection*
+	END)?
+    ;
+
+IncludeDirective:
+    '..' 'include::'
+    importURI=FileName NL
+;
+
+OtherIncludeDirective:
+    '..' ('literalinclude::' | 'plot::')
+    file=FileName NL
+    block=Block?
+;
+
+ImageDirective:
+    '..' ('image::' | 'figure::')
+    picture=FileName NL
+    block=Block?
+;
+
+RawBlock:
+    BEGIN
+       	(line+=RawLine | block+=RawBlock)*
+    END
+;
+
+RawDirective:
+	'..' ('raw::' | 'tabularcolumns::' | 'code::' | 'code-block::' | 'graphviz::')
+	firstLine=RawText? NL
+	block=RawBlock?
+;
+
+BibDirective:
+    '..' 'bibliography::'
+    bib=FileName NL
+    block=Block?
+;
+
+LabelDirective:
+	'..' Label NL
+;
+
+Label hidden():
+	UNDERSCORE name=SIMPLE_WORD COLON
+;
+
+ReplacementDirective:
+	'..' Replacement 'replace::'
+	text=Text NL
+;
+
+Replacement hidden():
+	PIPE name=SIMPLE_WORD PIPE
+;
+
+
+OtherDirective:
+    '..' name=SIMPLE_WORD '::' 
+    firstLine=Text? NL
+    block=Block?
+    ;
+    
+Block:
+	NL*
+	BEGIN
+	    options+=DirectiveOption*
+		NL*
+    	block+=UniversalSection*
+	END
+;
+
+DirectiveOption:
+	//(=> COLON) name=SIMPLE_WORD COLON (value=Text)? NL
+	name=ROLE_WORD (value=Text)? NL
+;
+
+Text:
+	items+=Literal+
+;
+
+Literal:
+    StyledTextLiteral
+    | StyledText
+;
+
+StartTextLiteral:
+	StartSimpleLiteral
+	|	Role
+    |	ReplacementRef
+    |	Reference
+    |	COLON
+    |	L_ANGLE_BRACKET
+    |	R_ANGLE_BRACKET
+    |   StyledText
+;
+
+StyledText:
+      Bold
+    | Italic
+;
+
+Bold
+  :  {Bold}
+  	 '**'
+      text+=StyledTextLiteral+
+     '**'
+  ;
+
+Italic
+  :  {Italic}
+  	STAR text+=StyledTextLiteral+ (STAR | BULLET_STAR)
+  ;
+  
+//Latex:
+//	LatexLiteral+
+//;
+//
+//LatexLiteral:
+//		SIMPLE_WORD
+//	| 	SPECIAL_CHAR
+//	|	UNDERSCORE
+//	|	STAR
+//	|	L_ANGLE_BRACKET
+//	|	R_ANGLE_BRACKET
+////	|	SIMPLE_REFERENCE
+//	|	PIPE
+//	|	COLON
+//;
+ 
+RawLine:
+	RawText? NL
+;
+
+RawText:
+	{RawText}
+	RawLiteral+
+;
+
+RawLiteral:
+		SIMPLE_WORD
+	|	ROLE_WORD
+	|   BULLET
+	| 	SPECIAL_CHAR
+	|	UNDERSCORE
+	|	STAR
+	|	'**'
+	|	L_ANGLE_BRACKET
+	|	R_ANGLE_BRACKET
+	|	PIPE
+	|	COLON
+	|	HASH
+	|	COLON_WORD
+;
+
+
+StyledTextLiteral:
+    SimpleLiteral
+    |	Role
+    |	ReplacementRef
+    |	Reference
+    |	COLON
+    |	L_ANGLE_BRACKET
+    |	R_ANGLE_BRACKET
+;
+
+ReplacementRef:
+	PIPE name=[Replacement|SIMPLE_WORD] PIPE
+;
+
+Role:
+		MathRole
+	|	CiteRole
+	|	NumfigRole
+	|	EqRole
+	| 	OtherRole
+;
+
+MathRole:
+	':math:' BACKTICK text=RawText BACKTICK
+;
+
+HashRef hidden():
+	HASH ref=[Label|SIMPLE_WORD]
+;
+
+NumfigRole:
+	':num:' BACKTICK text=SimpleText ref=HashRef BACKTICK
+;
+
+CiteRoleEntryList:
+	entry+=[bib::Entry|SIMPLE_WORD] (',' entry+=[bib::Entry|SIMPLE_WORD])*
+;
+
+CiteRole:
+	':cite:' BACKTICK entry_list=CiteRoleEntryList BACKTICK
+;
+
+EqRole:
+	':eq:' BACKTICK ref=[MathDirective|SIMPLE_WORD] BACKTICK
+;
+
+OtherRole:
+	name=ROLE_WORD BACKTICK text=SimpleText BACKTICK
+;
+
+
+SimpleText returns ecore::EString:
+	SimpleLiteral+
+;
+
+StartSimpleLiteral:
+      SIMPLE_WORD
+    | SPECIAL_CHAR
+;
+
+SimpleLiteral:
+      SIMPLE_WORD
+    | SPECIAL_CHAR
+    | BULLET_MINUS
+    | BULLET_PLUS
+;
+
+Reference:
+	  ExternalReference
+	| LongReference
+//	| SimpleReference
+  ;
+//
+//SimpleReference
+//  :  ReferenceName UNDERSCORE (WS | LINE_BREAK)
+//  ;
+//
+//ReferenceName:
+//	name=[Heading|SIMPLE_WORD]
+//;
+//
+
+RefTarget:
+	  NamedSectionTitle 
+	| Label
+;
+
+LongReference :
+	BACKTICK
+	ref=[RefTarget|SimpleText]
+	BACKTICK UNDERSCORE
+  ;
+
+ExternalReference:
+	BACKTICK
+	title=SimpleText
+	L_ANGLE_BRACKET
+	link=SimpleText
+	R_ANGLE_BRACKET
+	BACKTICK UNDERSCORE
+;
+
+FileName:
+	{FileName}
+	name=FilePathString
+;
+
+FilePathString:
+	(SIMPLE_WORD | '.' | '/' )+
+;
+
+terminal fragment
+ALPHA_NUM:
+	('a'..'z' | 'A'..'Z' | '0'..'9') 
+;
+
+terminal fragment
+SIMPLE_WORD_FRAGMENT:
+	ALPHA_NUM (ALPHA_NUM | '-' | '_')*
+;
+
+terminal
+SIMPLE_WORD:
+	SIMPLE_WORD_FRAGMENT
+	;
+	
+terminal
+ROLE_WORD:
+	':' (SIMPLE_WORD_FRAGMENT ':')+
+;
+
+terminal
+COLON_WORD:
+	':' SIMPLE_WORD_FRAGMENT+
+;
+
+SPECIAL_CHAR:  (
+     '!'
+    |MINUS
+    |DASH
+    |'"'
+    |'$'
+    |'%'
+    |'&'
+    |'\''
+    |'('
+    |')'
+    |'+'
+    |','
+    |'.'
+    |'/'
+    |SEMI
+    |'='
+    |'?'
+    |'@'
+    |'['
+    |'\\'
+    |']'
+    |'^'
+    |'{'
+    |'}'
+    |'~'
+    |'...'
+    )
+  ;
+
+terminal EQUAL_LINE:
+	'=' '=' '='+
+;
+
+terminal STAR_LINE:
+	'*' '*' '*'+
+;
+
+terminal SEMI_LINE:
+	';' ';' ';'+
+;
+
+terminal MINUS_LINE:
+	'-' '-' '-'+
+;
+
+BULLET:
+	BULLET_STAR | BULLET_MINUS | BULLET_PLUS
+;
+
+terminal BULLET_STAR : '* ';
+terminal BULLET_MINUS: '- ';
+terminal BULLET_PLUS : '+ ';
+
+terminal STAR: '*';
+terminal SEMI: ';';
+terminal UNDERSCORE :  '_';
+terminal BACKTICK :  '`';
+terminal PIPE:  '|';
+terminal COLON: ':';
+terminal MINUS: '-';
+terminal DASH: '--';
+terminal L_ANGLE_BRACKET: '<';
+terminal R_ANGLE_BRACKET: '>';
+terminal HASH : '#';
+
+//terminal NL			: ('\r'?'\n' WS_FRAGMENT*)+;
+terminal NL			: '\r'?'\n' WS_FRAGMENT*;	
+terminal WS			: WS_FRAGMENT;
+
+terminal fragment WS_FRAGMENT: 
+	(' '|'\t')+
+;
+
+terminal BEGIN: 'synthetic:BEGIN';
+terminal END: 'synthetic:END';

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/rs.demsys.rst/src-gen" editDirectory="/rs.demsys.rst.edit/src"
+    editorDirectory="/rs.demsys.rst.editor/src" modelPluginID="rs.demsys.rst" forceOverwrite="true"
+    modelName="Rst" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="rs.demsys.rst.edit"
+    editorPluginID="rs.demsys.rst.editor" runtimeVersion="2.10" usedGenPackages="platform:/resource/rs.demsys.rst.bib/model/generated/Bib.genmodel#//bib">
+  <genPackages prefix="Rst" basePackage="rs.demsys.rst" disposableProviderFactory="true"
+      fileExtensions="rst" ecorePackage="Rst.ecore#/">
+    <genClasses ecoreClass="Rst.ecore#//Document">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//Document/UniversalSection"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//Section"/>
+    <genClasses ecoreClass="Rst.ecore#//GlobalSection"/>
+    <genClasses ecoreClass="Rst.ecore#//UniversalSection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//UniversalSection/first"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//UniversalSection/text"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//SectionTitle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//SectionTitle/overline"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//SectionTitle/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//SectionTitle/underline"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//NamedSectionTitle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//NamedSectionTitle/overline"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//NamedSectionTitle/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//NamedSectionTitle/underline"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//Paragraph"/>
+    <genClasses ecoreClass="Rst.ecore#//BulletLine">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//BulletLine/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//Directive"/>
+    <genClasses ecoreClass="Rst.ecore#//RawSection"/>
+    <genClasses ecoreClass="Rst.ecore#//MathDirective">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//MathDirective/firstLine"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//MathDirective/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//MathDirective/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//IncludeDirective">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//IncludeDirective/importURI"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//OtherIncludeDirective">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//OtherIncludeDirective/file"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//OtherIncludeDirective/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//ImageDirective">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//ImageDirective/picture"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//ImageDirective/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//RawBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//RawBlock/line"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//RawBlock/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//RawDirective">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//RawDirective/firstLine"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//RawDirective/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//BibDirective">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//BibDirective/bib"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//BibDirective/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//LabelDirective"/>
+    <genClasses ecoreClass="Rst.ecore#//Label">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//Label/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//ReplacementDirective"/>
+    <genClasses ecoreClass="Rst.ecore#//Replacement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//Replacement/text"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//Replacement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//OtherDirective">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//OtherDirective/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//OtherDirective/firstLine"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//OtherDirective/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//Block">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//Block/options"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//Block/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//DirectiveOption">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//DirectiveOption/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//DirectiveOption/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//Text">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//Text/items"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//Literal"/>
+    <genClasses ecoreClass="Rst.ecore#//StartTextLiteral"/>
+    <genClasses ecoreClass="Rst.ecore#//StyledText">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//StyledText/text"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//Bold"/>
+    <genClasses ecoreClass="Rst.ecore#//Italic"/>
+    <genClasses ecoreClass="Rst.ecore#//RawLine"/>
+    <genClasses ecoreClass="Rst.ecore#//RawText"/>
+    <genClasses ecoreClass="Rst.ecore#//StyledTextLiteral"/>
+    <genClasses ecoreClass="Rst.ecore#//ReplacementRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Rst.ecore#//ReplacementRef/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//Role"/>
+    <genClasses ecoreClass="Rst.ecore#//MathRole">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//MathRole/text"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//HashRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Rst.ecore#//HashRef/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//NumfigRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//NumfigRole/text"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//NumfigRole/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//CiteRoleEntryList">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Rst.ecore#//CiteRoleEntryList/entry"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//CiteRole">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rst.ecore#//CiteRole/entry_list"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//EqRole">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Rst.ecore#//EqRole/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//OtherRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//OtherRole/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//OtherRole/text"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//Reference"/>
+    <genClasses ecoreClass="Rst.ecore#//RefTarget"/>
+    <genClasses ecoreClass="Rst.ecore#//LongReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Rst.ecore#//LongReference/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//ExternalReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//ExternalReference/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//ExternalReference/link"/>
+    </genClasses>
+    <genClasses ecoreClass="Rst.ecore#//FileName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rst.ecore#//FileName/name"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="rst" nsURI="http://www.demsys.rs/rst/Rst" nsPrefix="rst">
+  <eClassifiers xsi:type="ecore:EClass" name="Document">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="UniversalSection" upperBound="-1"
+        eType="#//Section" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Section"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GlobalSection" eSuperTypes="#//Section"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UniversalSection" eSuperTypes="#//Section">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="first" eType="#//StartTextLiteral"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//Text" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SectionTitle" eSuperTypes="#//GlobalSection">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="overline" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="title" eType="#//Text"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="underline" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedSectionTitle" eSuperTypes="#//GlobalSection #//RefTarget">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="overline" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="underline" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Paragraph" eSuperTypes="#//UniversalSection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BulletLine" eSuperTypes="#//UniversalSection">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Directive" eSuperTypes="#//GlobalSection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RawSection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MathDirective" eSuperTypes="#//Directive">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="firstLine" eType="#//RawText"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" upperBound="-1"
+        eType="#//RawSection" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IncludeDirective" eSuperTypes="#//Directive">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="importURI" eType="#//FileName"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OtherIncludeDirective" eSuperTypes="#//Directive">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="file" eType="#//FileName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ImageDirective" eSuperTypes="#//Directive">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="picture" eType="#//FileName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RawBlock" eSuperTypes="#//RawSection">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="line" upperBound="-1" eType="#//RawLine"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" upperBound="-1"
+        eType="#//RawBlock" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RawDirective" eSuperTypes="#//Directive">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="firstLine" eType="#//RawText"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//RawBlock"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BibDirective" eSuperTypes="#//Directive">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bib" eType="#//FileName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LabelDirective" eSuperTypes="#//Directive"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//LabelDirective #//RefTarget">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReplacementDirective" eSuperTypes="#//Directive"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Replacement" eSuperTypes="#//ReplacementDirective">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//Text" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OtherDirective" eSuperTypes="#//Directive">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="firstLine" eType="#//Text"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Block">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="options" upperBound="-1"
+        eType="#//DirectiveOption" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" upperBound="-1"
+        eType="#//UniversalSection" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DirectiveOption">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Text"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Text">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="items" upperBound="-1"
+        eType="#//Literal" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Literal"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StartTextLiteral"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StyledText" eSuperTypes="#//Literal #//StartTextLiteral">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="text" upperBound="-1" eType="#//StyledTextLiteral"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Bold" eSuperTypes="#//StyledText"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Italic" eSuperTypes="#//StyledText"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RawLine" eSuperTypes="#//RawSection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RawText" eSuperTypes="#//RawLine"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StyledTextLiteral" eSuperTypes="#//Literal"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ReplacementRef" eSuperTypes="#//StartTextLiteral #//StyledTextLiteral">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//Replacement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Role" eSuperTypes="#//StartTextLiteral #//StyledTextLiteral"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MathRole" eSuperTypes="#//Role">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//RawText"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HashRef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//Label"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NumfigRole" eSuperTypes="#//Role">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//HashRef"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CiteRoleEntryList">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entry" unique="false" upperBound="-1"
+        eType="ecore:EClass platform:/resource/rs.demsys.rst.bib/model/generated/Bib.ecore#//Entry"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CiteRole" eSuperTypes="#//Role">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entry_list" eType="#//CiteRoleEntryList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EqRole" eSuperTypes="#//Role">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//MathDirective"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OtherRole" eSuperTypes="#//Role">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Reference" eSuperTypes="#//StartTextLiteral #//StyledTextLiteral"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RefTarget"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LongReference" eSuperTypes="#//Reference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//RefTarget"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternalReference" eSuperTypes="#//Reference">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="link" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FileName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>
