@@ -5,6 +5,7 @@ package rs.demsys.rst.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
 import org.eclipse.xtext.ui.editor.contentassist.ITemplateProposalProvider;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper;
@@ -15,6 +16,7 @@ import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeI
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 
+import rs.demsys.rst.ui.autoedit.RstAutoEditStrategyProvider;
 import rs.demsys.rst.ui.highlighting.RstHighlightingCalculator;
 import rs.demsys.rst.ui.highlighting.RstHighlightingConfiguration;
 import rs.demsys.rst.ui.hover.RstEObjectDocumentationProvider;
@@ -70,4 +72,8 @@ public class RstUiModule extends rs.demsys.rst.ui.AbstractRstUiModule {
     public Class<? extends ITemplateProposalProvider> bindITemplateProposalProvider() {
       return RstTemplateProposalProvider.class;
     }
+	
+	public Class<? extends AbstractEditStrategyProvider> bindAbstractEditStrategyProvider() {
+		return RstAutoEditStrategyProvider.class;
+	}
 }
